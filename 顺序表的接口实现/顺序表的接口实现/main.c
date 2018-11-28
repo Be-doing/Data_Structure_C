@@ -9,5 +9,16 @@
 	sql_add_front(&sql_main, 3);
 	print_arr(&sql_main);
 
+	sql_add_rand(&sql_main, 1, 3);
+	sql_add_rand(&sql_main, 2, 4);
+	sql_add_rand(&sql_main, 2, 4);
+	print_arr(&sql_main);
+
+	sql_del_front(&sql_main);
+	print_arr(&sql_main);
+
+	sql_del_randnum(&sql_main,1);
+	print_arr(&sql_main);
+
 	system("pause");
  }

@@ -21,16 +21,30 @@ void print_arr(Sql* sl);
 void sql_add_front(Sql* sl, int num);
 	//尾插
 void sql_add_end(Sql* sl, int num);
+	//随机加入
+void sql_add_rand(Sql* sql,size_t pos, int num);
 
 //删接口
 	//头删
 void sql_del_front(Sql* sl);
 	//尾删
 void sql_del_front(Sql* sl);
+	//随机删除
+void sql_del_randpos(Sql* sl ,size_t pos);
+void sql_del_randnum(Sql* sl, int num);
 
 //查接口
-void sql_find(Sql* sl, int num);
+int sql_find(Sql* sl, int num);
 
 //改接口
+void sql_updata(Sql* sl,size_t pos,int num);
 
+//拓展
+	//冒泡排序
+void sql_bubblesort(Sql* sl);
 
+	//折半查找
+void sql_half_find(Sql* sl, int num);
+
+	//删除相同的数
+void sql_del_allsame(Sql* sl, int num);
