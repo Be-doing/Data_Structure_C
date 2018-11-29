@@ -44,7 +44,7 @@ void sql_updata(Sql* sl,size_t pos,int num);
 void sql_bubblesort(Sql* sl);
 
 	//折半查找
-void sql_half_find(Sql* sl, int num);
+int sql_half_find(Sql* sl, int num);
 
 	//删除相同的数
 void sql_del_allsame(Sql* sl, int num);

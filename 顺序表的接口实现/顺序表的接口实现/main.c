@@ -20,5 +20,13 @@
 	sql_del_randnum(&sql_main,1);
 	print_arr(&sql_main);
 
+
+	sql_bubblesort(&sql_main);
+	print_arr(&sql_main);
+	printf("%d\n", sql_half_find(&sql_main, 4));
+
+
+	sql_del_allsame(&sql_main, 4);
+	print_arr(&sql_main);
 	system("pause");
  }
