@@ -187,10 +187,11 @@ void sql_del_allsame(Sql* sl, int num)
 	int notsame = 0;
 	for (size_t i = 0; i < sl->size; i++)
 	{
-		if (sl->arr[i]!=num)
+		if (sl->arr[i]!=num)	
 		{
-			++notsame;
+			sl->arr[notsame++] = sl->arr[i];
 		}
+		
 	}
 	sl->size = notsame;
 }
