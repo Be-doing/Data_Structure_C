@@ -141,7 +141,7 @@ void sl_firstnum(HEAD* psl, int num)
 		return;
 	}
 	if (prev == NULL) {
-		SListPopFront(psl);
+		sl_del_front(psl);// 1
 		return;
 	}
 	prev->next = cur->next;
