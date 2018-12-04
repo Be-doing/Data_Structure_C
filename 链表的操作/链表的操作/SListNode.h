@@ -32,8 +32,8 @@ void sl_del_end(HEAD* psl);
 //链表的查询
 SL* sl_find(HEAD* psl, int num);
 //链表的随机插入
-void sl_insert(HEAD* psl, SL* pos ,int num);
+void sl_insert(SL* pos ,int num);
 //链表的随机删除
-void sl_esare(HEAD* psl, SL* pos, int num);
+void sl_esare(SL* pos);
 //链表的删除第一个数字
 void sl_firstnum(HEAD* psl, int num);

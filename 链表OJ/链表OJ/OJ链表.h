@@ -9,14 +9,17 @@ typedef struct SLHEAD
 {
 	SL* head;
 }HEAD;
+void sl_init(HEAD* spl);
+//链表的头插
+void sl_add_front(HEAD* psl, int num);
 //链表的尾插
 void sl_add_end(HEAD* psl, int num);
 //打印链表
 void sl_print(HEAD* psl);
 // 删除链表中等于给定值 val 的所有节点。
-void sl_delall(HEAD* psl,int num);
+SL* sl_delall(HEAD* psl,int num);
 //反转一个单链表。
-
+void sl_reverse(HEAD* psl);
 //给定一个带有头结点 head 的非空单链表，返回链表的中间结点。如果有两个中间结点，则返回第二个中间结点。
 
 //输入一个链表，输出该链表中倒数第k个结点。
