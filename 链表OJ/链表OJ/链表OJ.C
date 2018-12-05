@@ -37,9 +37,10 @@ void sl_add_front(HEAD* psl, int num)
 	psl->head = node;
 }
 //链表的尾插
+
 void sl_add_end(HEAD* psl, int num)
 {
-	if (psl == NULL)
+	if (psl->head == NULL)
 	{
 		sl_add_front(psl, num);
 		return;
@@ -56,10 +57,10 @@ void sl_add_end(HEAD* psl, int num)
 	last->next = node;
 }
 // 删除链表中等于给定值 val 的所有节点。
-SL* sl_delall(HEAD* psl, int num)
+void sl_delall(HEAD* psl, int num)
 {
 	if (psl == NULL) {
-		return NULL;
+		return;
 	}
 	SL* prev = psl->head;
 	SL* cur = psl->head->next;
@@ -78,10 +79,107 @@ SL* sl_delall(HEAD* psl, int num)
 		newHead = psl->head->next;
 		free(psl);
 	}
-	return newHead;
+	psl->head = newHead;
+
 }
 //反转一个单链表。
 void sl_reverse(HEAD* psl)
 {
+	SL* p0 = NULL;
+	SL* p1 = psl->head;
+	SL* p2 = psl->head->next;
+	while (p1 != NULL)
+	{
+		p1  ->next= p0;
+		p0 = p1;
+		p1 = p2;
+		if (p2 != NULL)
+		{
+			p2 = p2->next;
+		}
+	}
+	psl->head = p0;
+}
+//返回链表的中间结点的数据
+int sl_midnode(HEAD* psl)
+{
+	SL* fast = psl->head;
+	SL* slow = psl->head;
+	while (fast != NULL)
+	{
+		fast = fast->next;
+		if (fast != NULL)
+		{
+			break;
+		}
+		slow = slow->next;
+		fast = fast->next;
+	}
+	return slow->data;
+}
+//输入一个链表，输出该链表中倒数第k个结点。
+int sl_botk(HEAD* psl, int k)
+{
+	SL* fast = psl->head;
+	SL* slow = psl->head;
+	while ((fast!=NULL)&&(k--))
+	{
+		fast = fast->next;
+	}
+	if ((fast == NULL)||(k == 0))
+	{
+		return -1;
+	}
+	while (fast != NULL)
+	{
+		fast = fast->next;
+		slow = slow->next;
+	}
+	return slow->data;
+}
+//将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的
+SL* sl_link(HEAD* psl1, HEAD* psl2)
+{
+	SL* newsl = NULL;
+	SL* newend = NULL;
+	SL* p1 = psl1->head;
+	SL* p2 = psl2->head;
+	while (p1 != NULL && p2 != NULL)
+	{
+		if (p1->data <= p2->data)
+		{
+			if (newend == NULL)
+			{
+				newsl = newend = p1;
+			}
+			newend->next = p1;
+			newend = newend->next;
+			p1 = p1->next;
+		}
+		else
+		{
+			if (newend == NULL)
+			{
+				newsl = newend = p2;
+			}
+			newend->next = p2;
+			newend = newend->next;
+			p2 = p2->next;
+		}
+	}
+	if (p1 == NULL)
+	{
+		newend->next = p2;
+	}
+	else
+	{
+		newend->next = p1;
+	}
 	
+	return newsl;
+}
+//编写代码，以给定值x为基准将链表分割成两部分，所有小于x的结点排在大于或等于x的结点之前 。
+SL* sl_comp(HEAD* psl, int x)
+{
+	return 0;
 }
