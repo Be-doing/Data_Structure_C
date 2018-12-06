@@ -101,7 +101,7 @@ void sl_reverse(HEAD* psl)
 	psl->head = p0;
 }
 //返回链表的中间结点的数据
-int sl_midnode(HEAD* psl)
+SL* sl_midnode(HEAD* psl)
 {
 	SL* fast = psl->head;
 	SL* slow = psl->head;
@@ -115,7 +115,7 @@ int sl_midnode(HEAD* psl)
 		slow = slow->next;
 		fast = fast->next;
 	}
-	return slow->data;
+	return slow;
 }
 //输入一个链表，输出该链表中倒数第k个结点。
 int sl_botk(HEAD* psl, int k)
@@ -140,6 +140,14 @@ int sl_botk(HEAD* psl, int k)
 //将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的
 SL* sl_link(HEAD* psl1, HEAD* psl2)
 {
+	if (psl1 == NULL)
+	{
+		return psl1;
+	}
+	if (psl2 == NULL)
+	{
+		return psl2;
+	}
 	SL* newsl = NULL;
 	SL* newend = NULL;
 	SL* p1 = psl1->head;
@@ -175,11 +183,74 @@ SL* sl_link(HEAD* psl1, HEAD* psl2)
 	{
 		newend->next = p1;
 	}
-	
 	return newsl;
 }
 //编写代码，以给定值x为基准将链表分割成两部分，所有小于x的结点排在大于或等于x的结点之前 。
-SL* sl_comp(HEAD* psl, int x)
+void sl_comp(HEAD* psl, int x)
 {
+	SL* minp = NULL;
+	SL* minpend = NULL;
+	SL* maxp = NULL;
+	SL* maxpend = NULL;
+
+	SL* temp = psl->head;
+	while (temp != NULL)
+	{
+		if (temp->data < x)
+		{
+			if (minp == NULL)
+			{
+				minp = minpend = temp;
+			}
+			else
+			{
+				minpend->next = temp;
+				minpend = minpend->next;
+			}
+
+		}
+		else
+		{
+			if (maxpend == NULL)
+			{
+				maxp = maxpend = temp;
+			}
+			else
+			{
+				maxpend->next = temp;
+				maxpend = maxpend->next;
+			}
+		}
+		temp = temp->next;
+	}
+	minpend->next = maxp;
+}
+//在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。
+SL* sl_delsameall(HEAD* psl)
+{
+	return 0;
+}
+
+//链表的回文结构。
+int sl_judpal(HEAD* psl)
+{
+	if (psl == NULL)
+	{
+		return 0;
+	}
+	//HEAD* node = psl;
+	HEAD temp;
+	temp.head = sl_midnode(psl);
+	sl_reverse(&temp);
+	SL* newp = temp.head; //保存翻转后的链表的头节点
+	while (psl != NULL)
+	{
+		if (psl->head->next == newp->next)
+		{
+			return 1;
+		}
+		psl = psl->head->next;
+		newp = newp->next;
+	}
 	return 0;
 }

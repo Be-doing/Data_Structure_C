@@ -18,18 +18,25 @@ main()
 	sl_add_end(&sl_main, 1);
 	sl_add_end(&sl_main, 2);
 	sl_add_end(&sl_main, 4);
+	sl_add_end(&sl_main, 1);
+	sl_add_end(&sl_main, 2);
+	sl_add_end(&sl_main, 4);
+
 	sl_print(&sl_main);
-	HEAD sl_main2;
-	sl_init(&sl_main2);
-	sl_add_end(&sl_main2, 3);
-	sl_add_end(&sl_main2, 5);
-	sl_add_end(&sl_main2, 6);
-	sl_print(&sl_main2);
 
-	HEAD temp;
-	temp.head=sl_link(&sl_main,&sl_main2);
+	sl_comp(&sl_main,2);
+	sl_print(&sl_main);
+	//HEAD sl_main2;
+	//sl_init(&sl_main2);
+	//sl_add_end(&sl_main2, 3);
+	//sl_add_end(&sl_main2, 5);
+	//sl_add_end(&sl_main2, 6);
+	//sl_print(&sl_main2);
 
-	sl_print(&temp);
+	//HEAD temp;
+	//temp.head=sl_link(&sl_main,&sl_main2);
+
+	//sl_print(&temp);
 
 	system("pause");
 }
