@@ -18,14 +18,16 @@ main()
 	sl_add_end(&sl_main, 1);
 	sl_add_end(&sl_main, 2);
 	sl_add_end(&sl_main, 4);
-	sl_add_end(&sl_main, 1);
-	sl_add_end(&sl_main, 2);
-	sl_add_end(&sl_main, 4);
+	sl_add_end(&sl_main, 5);
+	sl_add_end(&sl_main, 5);
+	sl_add_end(&sl_main, 6);
 
 	sl_print(&sl_main);
-
-	sl_comp(&sl_main,2);
+	HEAD temp;
+	temp.head = sl_delsameall(&sl_main);
 	sl_print(&sl_main);
+	//sl_comp(&sl_main,2);
+	//sl_print(&sl_main);
 	//HEAD sl_main2;
 	//sl_init(&sl_main2);
 	//sl_add_end(&sl_main2, 3);

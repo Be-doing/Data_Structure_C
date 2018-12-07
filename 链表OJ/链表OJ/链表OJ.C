@@ -142,11 +142,11 @@ SL* sl_link(HEAD* psl1, HEAD* psl2)
 {
 	if (psl1 == NULL)
 	{
-		return psl1;
+		return psl1->head;
 	}
 	if (psl2 == NULL)
 	{
-		return psl2;
+		return psl2->head;
 	}
 	SL* newsl = NULL;
 	SL* newend = NULL;
@@ -228,7 +228,48 @@ void sl_comp(HEAD* psl, int x)
 //在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。
 SL* sl_delsameall(HEAD* psl)
 {
-	return 0;
+	if (psl->head == NULL) {
+		return NULL;
+	}
+
+	SL* p0 = NULL;
+	SL* p1 = psl->head;
+	SL *p2 = psl->head;
+
+	while (p2 != NULL) {
+		if (p1->data != p2->data) {
+			p0 = p1;
+			p1 = p2;
+			p2 = p2->next;
+		}
+		else {
+			while (p2 != NULL && p2->data == p1->data) {
+				p2 = p2->next;
+			}
+			// 1. p2 走到链表结尾
+			// 2. p2 遇到不相等的值了
+			if (p2 == NULL) {
+				if (p0 != NULL) {
+					p0->next = p2;	// NULL
+				}
+				else {
+					return NULL;
+				}
+				break;
+			}
+
+			if (p0 != NULL) {
+				p0->next = p2;
+			}
+			else {
+				psl->head->next = p2;
+			}
+			p1 = p2;
+			p2 = p2->next;
+		}
+	}
+
+	return psl->head;
 }
 
 //链表的回文结构。
@@ -249,7 +290,7 @@ int sl_judpal(HEAD* psl)
 		{
 			return 1;
 		}
-		psl = psl->head->next;
+		psl->head = psl->head->next;
 		newp = newp->next;
 	}
 	return 0;
