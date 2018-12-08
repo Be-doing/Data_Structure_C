@@ -295,3 +295,48 @@ int sl_judpal(HEAD* psl)
 	}
 	return 0;
 }
+
+//输入两个链表，找出它们的第一个公共结点。
+//写一个求链表长度的函数
+int get_length(HEAD* psl)
+{
+	SL* temp;
+	temp = psl->head;
+	int len = 0;
+	while (temp != NULL)
+	{
+		temp = temp->next;
+		++len;
+	}
+	return len;
+}
+SL* sl_findcon(HEAD* psl1,HEAD* psl2)
+{
+	int len1 = get_length(psl1);
+	int len2 = get_length(psl2);
+	SL* longer;
+	SL* shorter;
+	int diff;
+	diff = len1 - len2;
+	if (diff < 0)
+	{
+		diff = 0 - diff;
+		longer = psl2->head;
+		shorter = psl1->head;
+	}
+	else
+	{
+		longer = psl1->head;
+		shorter = psl2->head;
+	}
+	for (int i = 0; i < diff; ++i)
+	{
+		longer = longer->next;
+	}
+	while (longer != shorter)
+	{
+		longer = longer->next;
+		shorter = shorter->next;
+	}
+	return longer;
+}
