@@ -1,6 +1,6 @@
 #pragma once
-
-
+#include<stdlib.h>
+#include<stdio.h>
 typedef int HPDataType;
 //À≥–Ú±Ì µœ÷∂—
 typedef struct Heap
