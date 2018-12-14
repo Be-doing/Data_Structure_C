@@ -46,6 +46,11 @@ void Stack_test()
 	system("pause");
 }
 
+
+
+#include"Queue.h"
+//用队列实现栈
+
 main()
 {
 	Stack_test();
