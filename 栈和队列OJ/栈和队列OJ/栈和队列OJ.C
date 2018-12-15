@@ -50,7 +50,33 @@ void Stack_test()
 
 #include"Queue.h"
 //用队列实现栈
-
+	//创建栈
+typedef struct MyStack
+{
+	int capacity;
+	Queue queue;
+}MyStack;
+	//初始化/创建
+MyStack* myst_init(int capacity)
+{
+	MyStack* stack = (MyStack*)malloc(sizeof(MyStack));
+	assert(stack);
+	stack->capacity = capacity;
+	qu_init(&(stack->queue));
+	return stack;	
+}
+	//添加
+void myst_push(MyStack* st, int data)
+{
+	assert((st->queue.size)<(st->capacity));
+	qu_push(&(st->queue),data);
+}
+	//删除
+void myst_pop(MyStack* st)
+{
+	assert(st->queue.size>0);
+	qu_pop(&(st->queue.front));
+}
 main()
 {
 	Stack_test();
