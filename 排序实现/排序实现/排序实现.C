@@ -2,6 +2,7 @@
 #include<assert.h>
 #include<stdlib.h>
 #include<stdio.h>
+//√∞≈›≈≈–Ú
 int* bubble_sort(int* arr, int size)
 {
 	assert(arr);
@@ -25,7 +26,30 @@ int* bubble_sort(int* arr, int size)
 	}
 	return arr;
 }
+//÷±Ω”≤Â»Î≈≈–Ú
+int* insert_sort(int* arr, int size)
+{
+	assert(arr);
+	int i, j; 
+	int temp; 
+	for (i = 1; i < size; i++) 
+	{ 
+		temp = arr[i]; 
+		for (j = i - 1; j >= 0; j--) 
+		{ 
+			if (temp < arr[j]) 
+			{ 
+				arr[j + 1] = arr[j]; 
+			}
+			else 
+			{ 
+				break;
+			}
+		} 
+		arr[j + 1] = temp;
+	}
 
+}
 main()
 {
 	int arr[] = { 1,2,5,7,6,3,4,8,4 };
