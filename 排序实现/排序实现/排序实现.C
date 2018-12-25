@@ -37,7 +37,7 @@ int* insert_sort(int* arr, int size)
 		temp = arr[i]; 
 		for (j = i - 1; j >= 0; j--) 
 		{ 
-			if (temp < arr[j]) 
+			if (temp > arr[j]) 
 			{ 
 				arr[j + 1] = arr[j]; 
 			}
@@ -48,7 +48,7 @@ int* insert_sort(int* arr, int size)
 		} 
 		arr[j + 1] = temp;
 	}
-
+	return arr;
 }
 //—°‘Ò≈≈–Ú
 int* choice_sort(int *arr, int size)
@@ -58,7 +58,7 @@ int* choice_sort(int *arr, int size)
 	{
 		for (j = i + 1; j < size; j++)
 		{
-			if (arr[i] > arr[j])
+			if (arr[i] < arr[j])
 			{
 				temp = arr[i];
 				arr[i] = arr[j];
@@ -66,7 +66,10 @@ int* choice_sort(int *arr, int size)
 			}
 		}
 	}
+	return arr;
 }
+//øÏÀŸ≈≈–Ú
+
 main()
 {
 	int arr[] = { 1,2,5,7,6,3,4,8,4 };
@@ -77,5 +80,28 @@ main()
 	{
 		printf("%d  ", temp[i]);
 	}
+	printf("\n");
+
+
+	int arr2[] = { 1,2,5,7,6,3,4,8,4 };
+	int len2 = sizeof(arr2) / sizeof(int);
+	int* temp2 = insert_sort(arr2, len);
+
+	for (int i = 0; i < len2; i++)
+	{
+		printf("%d  ", temp2[i]);
+	}
+	printf("\n");
+
+
+	int arr3[] = { 1,2,5,7,6,3,4,8,4 };
+	int len3 = sizeof(arr3) / sizeof(int);
+	int* temp3 = choice_sort(arr3, len);
+
+	for (int i = 0; i < len3; i++)
+	{
+		printf("%d  ", temp3[i]);
+	}
+	printf("\n");
 	system("pause");
 }
