@@ -103,16 +103,47 @@ int isBalanced(Btree* root) {
 		}
 		return 0;
 }
-
-//建二叉树
+//根据数组建二叉树
 //接口结构体
 typedef struct MyStruct
 {
-	Btree* node;
-	int used;
+	Btree* root;// 创建好的树的根结点
+	int used;// 创建树过程中用掉的 val 个数
 }MyStruct;
+
 MyStruct CreateTree(char arr[], int size)
 {
+	if (size == 0)
+	{
+		MyStruct node =
+		{
+			.root = NULL,
+			.used = 0
+		};
+		return node;
+	}
+	char rootData = arr[0];
+	if (rootData == '#')
+	{
+		MyStruct node =
+		{
+			.root = '#',
+			.used = 1
+		};
+		return node;
+	}
 	Btree* tree = (Btree*)malloc(sizeof(Btree));
+	tree->data = rootData;
+	//创建左子树
+	MyStruct left_root = CreateTree(arr + 1, size - 1);
+	// 创建右子树
+	MyStruct right_root = CreateTree(arr + 1 + left_root.used, size - 1 - left_root.used);
+	tree->left = left_root.root;
+	tree->right = right_root.root;
 
+	MyStruct root = {
+			.root = tree,
+			.used = 1 + left_root.used + right_root.used
+	};
+	return root;
 }
