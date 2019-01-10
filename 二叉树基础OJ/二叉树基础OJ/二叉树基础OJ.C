@@ -7,7 +7,7 @@ typedef struct BinaryTree
 	struct BinaryTree* left;
 	struct BinaryTree* right;
 }Btree;
-//前中后序遍历
+//1 2 3前中后序遍历
 void front_tra(Btree* root)
 {
 	if (root == NULL)
@@ -39,7 +39,7 @@ void end_tra(Btree* root)
 	front_tra(root->right);
 	printf("%d ", root->data);
 }
-//检查两棵树是否相同
+//4 检查两棵树是否相同
 int judge_same(Btree* root1, Btree* root2)
 {
 	if ((root1 == NULL) && (root2 == NULL))
@@ -54,22 +54,28 @@ int judge_same(Btree* root1, Btree* root2)
 		judge_same(root1->left, root2->left) &&
 		judge_same(root1->right, root2->right);
 }
-//对称二叉树
-int judge_sam(Btree* root1, Btree* root2)
+//5 一棵树的子树
+int isSubtree(Btree* t1, Btree* t2)
 {
-	if ((root1 == NULL) && (root2 == NULL))
+	if (t1 == NULL )
+	{
+		return -1;
+	}
+	if (t1->data==t2->data)
+	{
+		if (judge_same(t1, t2))
+		{
+			return 1;
+		}
+	}
+	if (isSubtree(t1->left, t2))
 	{
 		return 1;
 	}
-	if ((root1 == NULL) || (root2 == NULL))
-	{
-		return 0;
-	}
-	return (root1->data == root2->data) &&
-		judge_sym(root1->left, root2->right) &&
-		judge_sym(root1->right, root2->left);
+	return isSubtree(t1->right,t2);
 }
-//二叉树的高度
+
+//6 二叉树的最大深度
 int GetHeight(Btree* root)
 {
 	if (root == NULL)
@@ -87,23 +93,40 @@ int GetHeight(Btree* root)
 		return r + 1;
 	}
 }
-//平衡二叉树
+//7 平衡二叉树
 //一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
 
 int isBalanced(Btree* root) {
-		if (root == NULL )
-		{
-			return 1;
-		}
-		int l = GetHeight(root->left);
-		int r = GetHeight(root->right);
-		if ( -1 <=(l - r) <= 1)
-		{
-			return 1;
-		}
-		return 0;
+	if (root == NULL)
+	{
+		return 1;
+	}
+	int l = GetHeight(root->left);
+	int r = GetHeight(root->right);
+	if (-1 <= (l - r) <= 1)
+	{
+		return 1;
+	}
+	return 0;
 }
-//根据数组建二叉树
+//8 对称二叉树
+int judge_sam(Btree* root1, Btree* root2)
+{
+	if ((root1 == NULL) && (root2 == NULL))
+	{
+		return 1;
+	}
+	if ((root1 == NULL) || (root2 == NULL))
+	{
+		return 0;
+	}
+	return (root1->data == root2->data) &&
+		judge_sym(root1->left, root2->right) &&
+		judge_sym(root1->right, root2->left);
+}
+
+
+//9 根据数组建二叉树
 //接口结构体
 typedef struct MyStruct
 {

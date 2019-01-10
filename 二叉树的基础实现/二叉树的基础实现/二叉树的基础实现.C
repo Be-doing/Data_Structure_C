@@ -1,31 +1,33 @@
 #include"BinaryTree.h"
 #include<assert.h>
+#include<stdio.h>
 //构建二叉树
-BTnode* BinaryTreeCreate(BTDataType* arr, int size, int sign)
+BTnode* BinaryTreeCreate(BTDataType* arr, int size, int *sign)
 {
 	assert(arr);
-	if (arr[sign] == '#')
+	if (size == 0)
+	{
+		return NULL;
+	}
+	if (*arr == '#')
 	{
 		return;
 	}
 	BTnode* node = (BTnode*)malloc(sizeof(BTnode));
-	node->data = arr[sign];
-	++sign;
-	node->left = BinaryTreeCreate(arr, size, sign);
-	++sign;
-	node->right = BinaryTreeCreate(arr, size, sign);
+	node->data = *arr;
+	node->left = BinaryTreeCreate(arr +1, size);
+	node->right = BinaryTreeCreate(arr, size);
 	return node;
 }
 
 //二叉树的销毁
 void BinaryTreeDestroy(BTnode* root);
-
-//叶子的度
+//结点个数
+int BinaryTreeSize(BTnode* root);
+//叶子的个数
 int BinaryTreeLeafSize(BTnode* root);
-
-//查找结点
-BTnode* BinaryTreeFindNode(BTnode* root, BTDataType data);
-
+//第K层叶子结点的个数
+int BinaryTreeLevelKSize(BTnode* root, int k);
 //前中后遍历
 void BinaryTreePrevorder(BTnode* root)
 {
@@ -60,3 +62,34 @@ void BinaryTreePostorder(BTnode* root)
 }
 //判断二叉树是否是完全二叉树
 int BinaryTreeComplete(BTnode* root);
+
+
+//查找结点
+BTnode* BinaryTreeFindNode(BTnode* root, BTDataType data)
+{
+	if (root == NULL)
+	{
+		return NULL;
+	}
+	if (root->data == data)
+	{
+		return root;
+	}
+	BTnode* node = BinaryTreeFindNode(root->left, data);
+	if (node == NULL)
+	{
+		BTnode* node2 = BinaryTreeFindNode(root->right, data);
+		if (node2 == NULL)
+		{
+			return NULL;
+		}
+		else
+		{
+			return node2;
+		}
+	}
+	else
+	{
+		return node;
+	}
+}

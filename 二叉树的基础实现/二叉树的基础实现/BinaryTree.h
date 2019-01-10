@@ -13,8 +13,14 @@ BTnode* BinaryTreeCreate(BTDataType* arr, int size, int sign);
 //二叉树的销毁
 void BinaryTreeDestroy(BTnode* root);
 
-//叶子的度
+//结点个数
+int BinaryTreeSize(BTnode* root);
+
+//叶子的个数
 int BinaryTreeLeafSize(BTnode* root);
+
+//第K层叶子结点的个数
+int BinaryTreeLevelKSize(BTnode* root, int k);
 
 //查找结点
 BTnode* BinaryTreeFindNode(BTnode* root, BTDataType data);
