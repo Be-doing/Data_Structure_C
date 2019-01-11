@@ -108,7 +108,7 @@ SL* sl_midnode(HEAD* psl)
 	while (fast != NULL)
 	{
 		fast = fast->next;
-		if (fast != NULL)
+		if (fast == NULL)
 		{
 			break;
 		}
@@ -126,7 +126,7 @@ int sl_botk(HEAD* psl, int k)
 	{
 		fast = fast->next;
 	}
-	if ((fast == NULL)||(k == 0))
+	if (fast == NULL)
 	{
 		return -1;
 	}
