@@ -1,14 +1,14 @@
 #pragma once
-typedef int BTDataType;
+typedef char BTDataType;
 typedef struct BinaryTree
 {
 	BTDataType data;
-	struct Binary* left;
-	struct Binary* right;
+	struct BinaryTree* left;
+	struct BinaryTree* right;
 }BTnode;
 
 //构建二叉树
-BTnode* BinaryTreeCreate(BTDataType* arr, int size, int sign);
+BTnode* BinaryTreeCreate(BTDataType* arr, int size, int* sign);
 
 //二叉树的销毁
 void BinaryTreeDestroy(BTnode* root);
