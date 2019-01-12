@@ -34,4 +34,5 @@ SL* sl_delsameall(HEAD* psl);
 int sl_judpal(HEAD* psl);
 //输入两个链表，找出它们的第一个公共结点。
 SL* sl_findcon(HEAD* psl1, HEAD* psl2);
-
+//判断是否带环
+int sl_cycle(HEAD* psl);

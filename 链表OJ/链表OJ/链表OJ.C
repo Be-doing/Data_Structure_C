@@ -143,7 +143,7 @@ SL* sl_link(HEAD* psl1, HEAD* psl2)
 	if (psl1 == NULL)
 	{
 		return psl1->head;
-	}
+	}	
 	if (psl2 == NULL)
 	{
 		return psl2->head;
@@ -339,4 +339,30 @@ SL* sl_findcon(HEAD* psl1,HEAD* psl2)
 		shorter = shorter->next;
 	}
 	return longer;
+}
+
+//判断是否带环
+int sl_cycle(HEAD* psl)
+{
+	SL* fast = psl->head;
+	SL* slow = psl->head;
+	do
+	{
+		if (fast == NULL)	//没有结点
+		{
+			break;
+		}
+		fast = fast->next;
+		if (fast == NULL)	//一个结点
+		{
+			break;
+		}
+		fast = fast->next;
+		slow = slow->next;
+	} while (fast != NULL);
+	if (fast == NULL)	//始终没有遇见
+	{
+		return -1;
+	}		//遇见
+	return 1;
 }
