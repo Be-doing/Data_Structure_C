@@ -58,11 +58,20 @@ int BinaryTreeLeafSize(BTnode* root)
 	}
 	return BinaryTreeLeafSize(root ->left) + BinaryTreeLeafSize(root ->right);
 }
+
 //第K层叶子结点的个数
-//int BinaryTreeLevelKSize(BTnode* root, int k)
-//{
-//	
-//}
+int BinaryTreeLevelKSize(BTnode* root, int k)
+{
+	if (root == NULL || k <= 0)
+	{
+		return 0;
+	}
+	if (root != NULL && k == 1)
+	{
+		return 1;
+	}
+	return BinaryTreeLevelKSize(root->left, k--) + BinaryTreeLevelKSize(root->right, k--);
+}
 //前中后遍历
 void BinaryTreePrevorder(BTnode* root)
 {
@@ -70,7 +79,7 @@ void BinaryTreePrevorder(BTnode* root)
 	{
 		return;
 	}
-	printf("%d ", root->data);
+	printf("%c ", root->data);
 	BinaryTreePrevorder(root->left);
 	BinaryTreePrevorder(root->right);
 }
@@ -82,7 +91,7 @@ void BinaryTreeInorder(BTnode* root)
 	}
 
 	BinaryTreeInorder(root->left);
-	printf("%d ", root->data);
+	printf("%c ", root->data);
 	BinaryTreeInorder(root->right);
 }
 void BinaryTreePostorder(BTnode* root)
@@ -93,7 +102,7 @@ void BinaryTreePostorder(BTnode* root)
 	}
 	BinaryTreePostorder(root->left);
 	BinaryTreePostorder(root->right);
-	printf("%d ", root->data);
+	printf("%c ", root->data);
 }
 //判断二叉树是否是完全二叉树
 //int BinaryTreeComplete(BTnode* root)
