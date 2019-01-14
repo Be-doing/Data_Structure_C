@@ -104,17 +104,6 @@ void BinaryTreePostorder(BTnode* root)
 	BinaryTreePostorder(root->right);
 	printf("%c ", root->data);
 }
-//判断二叉树是否是完全二叉树
-//int BinaryTreeComplete(BTnode* root)
-//{
-//	if (root == NULL)
-//	{
-//		return 1;
-//	}
-//
-//}
-
-
 //查找结点
 BTnode* BinaryTreeFindNode(BTnode* root, BTDataType data)
 {
@@ -144,3 +133,19 @@ BTnode* BinaryTreeFindNode(BTnode* root, BTDataType data)
 		return node;
 	}
 }
+
+//非递归操作
+//层序遍历
+void BinaryTreeLevelorder(BTnode* root)
+{
+
+}
+//判断二叉树是否是完全二叉树
+//int BinaryTreeComplete(BTnode* root)
+//{
+//	if (root == NULL)
+//	{
+//		return 1;
+//	}
+//
+//}
