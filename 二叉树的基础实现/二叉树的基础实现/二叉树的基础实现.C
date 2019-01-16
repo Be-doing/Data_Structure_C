@@ -1,4 +1,5 @@
 #include"BinaryTree.h"
+#include"BTquene.h"
 #include<assert.h>
 #include<stdio.h>
 #include<stdlib.h>
@@ -135,10 +136,32 @@ BTnode* BinaryTreeFindNode(BTnode* root, BTDataType data)
 }
 
 //非递归操作
+BTqueue queue;
 //层序遍历
 void BinaryTreeLevelorder(BTnode* root)
 {
-
+	printf("非递归层序遍历：");
+	if (root == NULL)
+	{
+		return;
+	}
+	btqueue_insert(&queue, root);
+	//取首结点
+	while (bt_empty(&queue))
+	{
+		BTnode* node = btqueue_front(&queue);
+		printf("%c\t",node->data);
+		btqueue_del(&queue);
+		if (node->left)
+		{
+			btqueue_insert(&queue, node->left);
+		}
+		if (node->right)
+		{
+			btqueue_insert(&queue, node->right);
+		}
+	}
+	printf("\n");
 }
 //判断二叉树是否是完全二叉树
 //int BinaryTreeComplete(BTnode* root)
@@ -147,5 +170,52 @@ void BinaryTreeLevelorder(BTnode* root)
 //	{
 //		return 1;
 //	}
+//	BTnode* node = queue.front;
+//	while (node)
+//	{
 //
+//	}
 //}
+
+//前序非递归
+
+/*
+while(cur != NULL || stack)
+{
+	while(cur != NULL)
+	{
+	printf;
+	stack_push();
+	cur = cur->left;
+	}
+	top = stcak_top();
+	stack_pop();
+	cur = top->right;
+}
+*/
+//后序遍历
+/*while (cur != NULL || s.empty())
+{
+	while(cur != NULL)
+	{
+	push(cur)
+	cur = cur->left
+	}
+	top = s.top;
+	if(top == NULL)
+	{
+	print
+	pop
+	last = top;
+	}
+	else if(top->right == last)
+	{
+	print
+	pop
+	last = top
+	}
+	else
+	{
+	cur = top->right;
+	}
+}*/

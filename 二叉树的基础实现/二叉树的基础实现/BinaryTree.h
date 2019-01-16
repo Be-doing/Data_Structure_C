@@ -29,8 +29,10 @@ BTnode* BinaryTreeFindNode(BTnode* root, BTDataType data);
 void BinaryTreePrevorder(BTnode* root);
 void BinaryTreeInorder(BTnode* root);
 void BinaryTreePostorder(BTnode* root);
-//判断二叉树是否是完全二叉树
-int BinaryTreeComplete(BTnode* root);
+
 //非递归操作
 //层序遍历
 void BinaryTreeLevelorder(BTnode* root);
+
+//判断二叉树是否是完全二叉树
+int BinaryTreeComplete(BTnode* root);
