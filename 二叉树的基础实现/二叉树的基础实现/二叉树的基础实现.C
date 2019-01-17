@@ -140,6 +140,7 @@ BTqueue queue;
 //层序遍历
 void BinaryTreeLevelorder(BTnode* root)
 {
+	queue = Queue_init(&queue);
 	printf("非递归层序遍历：");
 	if (root == NULL)
 	{
@@ -164,58 +165,106 @@ void BinaryTreeLevelorder(BTnode* root)
 	printf("\n");
 }
 //判断二叉树是否是完全二叉树
-//int BinaryTreeComplete(BTnode* root)
-//{
-//	if (root == NULL)
-//	{
-//		return 1;
-//	}
-//	BTnode* node = queue.front;
-//	while (node)
-//	{
-//
-//	}
-//}
-
-//前序非递归
-
-/*
-while(cur != NULL || stack)
+BTqueue queue2;
+char* BinaryTreeComplete(BTnode* root)
 {
-	while(cur != NULL)
+	char* n = "Not";
+	char* y = "Yes";
+	
+	if (root == NULL)
 	{
-	printf;
-	stack_push();
-	cur = cur->left;
+		return y;
 	}
-	top = stcak_top();
-	stack_pop();
-	cur = top->right;
+	btqueue_insert(&queue2, root);
+	BTnode* node = btqueue_front(&queue2);
+	while (node)
+	{
+		btqueue_del(&queue2);
+		btqueue_insert(&queue2, node->left);
+		btqueue_insert(&queue2, node->right);
+		node = btqueue_front(&queue2);
+	}
+	while (bt_empty(&queue2))
+	{
+		BTnode* node = btqueue_front(&queue2);
+		if (node == NULL)
+		{		
+			return n;
+		}
+		btqueue_del(&queue2);
+	}
+	return y;
 }
-*/
-//后序遍历
-/*while (cur != NULL || s.empty())
+
+#include"BTstack.h"
+//前序非递归
+BTStack s;
+void BinaryTreePrevOrderNonP(BTnode* root)
 {
-	while(cur != NULL)
+
+	s = BTS_init(&s);
+	BTnode* cur = root;
+	while (cur != NULL || BTS_empty(&s))
 	{
-	push(cur)
-	cur = cur->left
+		while (cur != NULL)
+		{
+			printf("%c  ", cur->data);
+			BTS_insert(&s, cur);
+			cur = cur->left;
+		}
+		StackDataType  top = BTS_top(&s);
+		BTS_del(&s);
+		cur = top->right;
 	}
-	top = s.top;
-	if(top == NULL)
+}
+
+//中序遍历非递归
+void BinaryTreeInOrderNonP(BTnode* root)
+{
+	s = BTS_init(&s);
+	BTnode* cur = root;
+	while (cur != NULL || BTS_empty(&s))
 	{
-	print
-	pop
-	last = top;
+		while (cur != NULL)
+		{
+			BTS_insert(&s, cur);
+			cur = cur->left;
+		}
+		StackDataType  top = BTS_top(&s);
+		BTS_del(&s);
+		printf("%c  ", top->data);
+		cur = top->right;
 	}
-	else if(top->right == last)
+}
+////后序遍历非递归
+void BinaryTreePostOrderNonP(BTnode* root)
+{
+	s = BTS_init(&s);
+	BTnode* cur = root;
+	BTnode* last = NULL;
+	while (cur != NULL || BTS_empty(&s))
 	{
-	print
-	pop
-	last = top
+		while (cur != NULL)
+		{
+			BTS_insert(&s, cur);
+			cur = cur->left;
+		}
+	StackDataType  top = BTS_top(&s);
+		if (top == NULL)
+		{
+		printf("%c ", top->data);
+		BTS_del(&s);
+		last = top;
+		}
+		else if (top->right == last)
+		{
+			printf("%c ", top->data);
+			BTS_del(&s);
+			last = top;
+		}
+		else
+		{
+			cur = top->right;
+		}
 	}
-	else
-	{
-	cur = top->right;
-	}
-}*/
+}

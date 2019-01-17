@@ -35,4 +35,9 @@ void BinaryTreePostorder(BTnode* root);
 void BinaryTreeLevelorder(BTnode* root);
 
 //判断二叉树是否是完全二叉树
-int BinaryTreeComplete(BTnode* root);
+char* BinaryTreeComplete(BTnode* root);
+
+//前中后序遍历
+void BinaryTreePrevOrderNonP(BTnode* root);
+void BinaryTreeInOrderNonP(BTnode* root);
+void BinaryTreePostOrderNonP(BTnode* root);
