@@ -36,3 +36,5 @@ int sl_judpal(HEAD* psl);
 SL* sl_findcon(HEAD* psl1, HEAD* psl2);
 //判断是否带环
 int sl_cycle(HEAD* psl);
+//给定一个链表，每个节点包含一个额外增加的随机指针，该指针可以指向链表中的任何节点或空节点。要求返回这个链表的深度拷贝。
+SL* copyRondom(HEAD* psl);

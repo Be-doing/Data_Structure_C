@@ -257,7 +257,6 @@ SL* sl_delsameall(HEAD* psl)
 				}
 				break;
 			}
-
 			if (p0 != NULL) {
 				p0->next = p2;
 			}
@@ -366,3 +365,54 @@ int sl_cycle(HEAD* psl)
 	}		//遇见
 	return 1;
 }
+
+//给定一个链表，每个节点包含一个额外增加的随机指针，该指针可以指向链表中的任何节点或空节点。要求返回这个链表的深度拷贝。
+typedef struct RandomListNode 
+{
+	int data;
+	struct RandomListNode *next;
+	struct RandomListNode *random;
+}RLN;
+RLN *	creatNode(int data)
+{
+	RLN* newnode = (RLN*)malloc(sizeof(RLN));
+	newnode->data = data;
+	newnode->next = newnode->random = NULL;
+}
+RLN* copyRondom(RLN* head)
+{
+	RLN* oldnode = head;
+	while (oldnode != NULL)
+	{
+		RLN* newnode = creatNode(oldnode->data);
+		newnode->data = oldnode->data;
+		newnode->next = oldnode->next;
+		oldnode->next = newnode;
+	}
+	oldnode = head;
+	while (oldnode != NULL)
+	{
+		RLN* newnode = oldnode->next;
+		if (oldnode->random != NULL)
+		{
+			newnode->random = oldnode->random;
+		}
+		oldnode = oldnode->next->next;
+	}
+	oldnode = head;
+	RLN* newhead = head->next;
+	while (oldnode = NULL)
+	{
+		RLN* newnode = oldnode->next;
+		oldnode->next = newnode->next;
+		if (oldnode->next != NULL)
+		{
+			newnode->next = oldnode->next->next;
+		}
+		else {
+			newnode->next = NULL;
+		}
+		oldnode = oldnode->next;
+	}
+}
+
