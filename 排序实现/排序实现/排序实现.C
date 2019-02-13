@@ -167,7 +167,6 @@ void Quick_Sort(int s[], int l, int r)
 				j--;
 			if (i < j)
 				s[i++] = s[j];
-
 			while (i < j && s[i] <= x)//从左往右找到第一个大于x的数  
 				i++;
 			if (i < j)
