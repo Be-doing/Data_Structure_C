@@ -26,50 +26,54 @@ void Bubble_Sort(int arr[], int size)
 	}
 }
 //直接插入排序
+	//时间复杂度 O(n^2)
 void  Insert_Sort(int arr[], int size)
 {
 	assert(arr);
-	int i, j; 
-	int temp; 
-	for (i = 1; i < size; ++i)
+	int i;//带插入元素的下标
+	int j; //需要进行比较的元素的下标。在i前面的元素都是已经排序好的元素。
+	int temp; //进行存储。在插入的过程中，需要进行移动。
+	for (i = 1; i < size; ++i)//1、从第二个元素插入，保证有可以比较的元素。
 	{ 
-		temp = arr[i]; 
-		for (j = i - 1; j >= 0; --j)
+		temp = arr[i]; //需要插入的元素，进行保存。
+		for (j = i - 1; j >= 0; --j)//在已经有序的数列中，进行比较。
 		{ 
-			if (temp > arr[j]) 
+			if (temp > arr[j]) //进行降序排序。如果待插入的元素大于它前一个元素arr[j]，
+										//那么 j 位置的元素就需要向后移动一个位置。
 			{ 
 				arr[j + 1] = arr[j]; 
 			}
-			else 
+			else //如果带插入元素不大于前一个元素，就停止
 			{ 
 				break;
 			}
 		} 
-		arr[j + 1] = temp;
+		arr[j + 1] = temp;//即为被插入元素的位置
 	}
 }
-//希尔排序
+//希尔排序——缩小增量法
 	//利用间隔排序
 void Insert_Sort_Withgap(int arr[], int size, int gap)
 {
 	assert(arr);
-	int i, j;
+	int i;
+	int j;
 	int temp;
-	for (i = gap; i < size; ++i)
+	for (i = gap; i < size; ++i)//从下标为gap的元素作为带插入元素
 	{
-		temp = arr[i];
-		for (j = i - gap; j >= 0; j -= gap)
+		temp = arr[i];//存储gap下标的元素
+		for (j = i - gap; j >= 0; j -= gap)//从第 0 个元素进行比较
 		{
-			if (temp > arr[j])
+			if (temp > arr[j])//降序
 			{
-				arr[j + gap] = arr[j];
+				arr[j + gap] = arr[j];//gap位置的元素换成 j 所在下标的元素
 			}
 			else
 			{
 				break;
 			}
 		}
-		arr[j + gap] = temp;
+		arr[j + gap] = temp;//j 所在下标位置存储  temp
 	}
 }
 	//希尔
@@ -78,15 +82,16 @@ void Shell_Sort(int arr[], int size)
 	int gap = size;
 	while (1)
 	{
-		gap = gap / 3 + 1;
+		gap = gap / 3 + 1;//改变gap 的值
 		Insert_Sort_Withgap(arr, size, gap);
 		if (gap == 1)
 		{
-			break;
+			break;	//gap的值为一时停止
 		}
 	}
 }
 //选择排序
+	//每一次选择一个最大的或者最小的放在序列的起始位置
 void Choice_Sort(int arr[], int size)
 {
 	for (int i = 1; i < size ; ++i)
@@ -102,7 +107,25 @@ void Choice_Sort(int arr[], int size)
 		}
 	}
 }
+void Choice_Sort2(int arr[], int size)
+{
+	for (int i = 1; i < size; ++i)//从下标为1 开始，找size - 1次
+	{
+		int max = 0;//假设最大的数的下标是第 0 个
+		for (int j = 1; j <= size - i; ++j)//从下标为 1 的元素开始比较。直到最后一个数
+		{
+			if (arr[j] > arr[max])
+			{
+				max = j;//如果找到比下标为max的元素还大的元素则把max的值进行改变
+			}
+		}
+		int temp = arr[size - i];
+		arr[size - i] = arr[max];
+		arr[max] = temp;
+	}
+}
 //堆排序
+	//升序建大堆，降序建小堆
 //向下调整
 void Adjust_down(int arr[], int size, int root)
 {
@@ -110,16 +133,16 @@ void Adjust_down(int arr[], int size, int root)
 	{
 		int left = root * 2 + 1;
 		int right = root * 2 + 2;
-		int min = left;
-		if (left >= size)
+		int min = left;//最小的为最左孩子
+		if (left >= size)//没有孩子结点
 		{
 			return;
 		}
-		if (right < size && arr[right] < arr[left])
+		if (right < size && arr[right] < arr[left])//有右孩子
 		{
 			min = right;
 		}
-		if (arr[root] <= arr[min])
+		if (arr[root] <= arr[min])//根节点已经是最小
 		{
 			return;
 		}
@@ -134,7 +157,7 @@ void Adjust_down(int arr[], int size, int root)
 void CreateBigHeap(int arr[], int size)
 {
 	//对左子树建堆，再对右子树建堆
-	int notlevel = (size - 2) / 2;
+	int notlevel = (size - 2) / 2;//从最后一个非叶子结点开始调整
 	while (notlevel >= 0)
 	{
 		Adjust_down(arr, size, notlevel);
