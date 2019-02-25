@@ -149,7 +149,6 @@ void Adjust_down(int arr[], int size, int root)
 		int temp = arr[root];
 		arr[root] = arr[min];
 		arr[min] = temp;
-
 		root = min;
 	}
 }
@@ -164,7 +163,6 @@ void CreateBigHeap(int arr[], int size)
 		--notlevel;
 	}
 }
-
 void HeapSort(int arr[], int size)
 {
 	//建堆
@@ -175,7 +173,7 @@ void HeapSort(int arr[], int size)
 		int t = arr[0];
 		arr[0] = arr[size - temp];
 		arr[size - temp] = t;	
-		Adjust_down(arr, size-temp,0);
+		Adjust_down(arr, size-temp,0);//从根节点开始调整
 	}
 }
 //快速排序
