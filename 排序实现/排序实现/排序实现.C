@@ -177,28 +177,83 @@ void HeapSort(int arr[], int size)
 	}
 }
 //快速排序
-void Quick_Sort(int s[], int l, int r)
+	//基准值在右，左边优先，相反，右边优先：防止一比到底
+int partition_1(int arr[], int left, int right)
 {
-	if (l < r)
+	int begin = left;
+	int end = right;
+	while (begin < end)
 	{
-		int i = l, j = r, x = s[l];
-		while (i < j)
+		while (begin < end && arr[begin] <= arr[right])//必须有等，比如：1，1，1，1，1。造成死循环
 		{
-			while (i < j && s[j] >= x)//从右到左找到第一个小于x的数  
-				j--;
-			if (i < j)
-				s[i++] = s[j];
-			while (i < j && s[i] <= x)//从左往右找到第一个大于x的数  
-				i++;
-			if (i < j)
-				s[j--] = s[i];
-
+			++begin;
 		}
-
-		s[i] = x;//i = j的时候，将x填入中间位置  
-		Quick_Sort(s, l, i - 1);//递归调用 
-		Quick_Sort(s, i + 1, r);
+		while (begin < end && arr[end] >= arr[right])
+		{
+			--end;
+		}
+		int temp = arr[begin];
+		arr[begin] = arr[end];
+		arr[end] = temp;
 	}
+	int temp = arr[begin];
+	arr[begin] = arr[right];
+	arr[right] = temp;
+
+	return begin;
+}
+int partition_2(int arr[], int left, int right)//挖坑法
+{
+	int begin = left;
+	int end = right;
+	int pivot = arr[right];
+	while (begin < end)
+	{
+		while (begin < end && arr[begin] <= pivot)//必须有等，比如：1，1，1，1，1。造成死循环
+		{
+			++begin;
+		}
+		arr[end] = arr[begin];
+		while (begin < end && arr[end] >= pivot)
+		{
+			--end;
+		}
+		arr[begin] = arr[end];
+	}
+	arr[begin] = pivot;
+	return begin;
+}
+int partition_3(int arr[], int left, int right)
+{
+	int div = left;
+	for (int cur = left ; cur < right; ++cur)
+	{
+		if (arr[cur] < arr[right])//1	3	9	2	4	6    
+		{
+			int temp = arr[cur];
+			arr[cur] = arr[div];
+			arr[div] = temp;
+			++div;
+		}
+	}
+	int temp = arr[right];
+	arr[right] = arr[div];
+	arr[div] = temp;
+	return div;
+}
+void QuickSort(int arr[], int left, int right)
+{
+	if (left >= right)
+	{
+		return;
+	}
+	    int povit = partition_3(arr, left, right);
+		QuickSort(arr, left, povit - 1);//递归调用 
+		QuickSort(arr, povit + 1, right);
+}
+void Quick_Sort(int arr[], int size)
+{
+	QuickSort(arr, 0 , size -1);
 }
 //void mergeAdd(int arr[], int left, int mid, int right, int *temp) {
 //		int i = left;
