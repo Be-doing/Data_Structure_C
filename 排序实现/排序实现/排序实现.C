@@ -1,4 +1,5 @@
 #include"Sort.h"
+#include "stack.h"
 #include<assert.h>
 #include<stdlib.h>
 #include<stdio.h>
@@ -255,36 +256,116 @@ void Quick_Sort(int arr[], int size)
 {
 	QuickSort(arr, 0 , size -1);
 }
-//void mergeAdd(int arr[], int left, int mid, int right, int *temp) {
-//		int i = left;
-//	int j = mid + 1;
-//	int k = left;//临时下标
-//	while (i <= mid && j <= right) {
-//		if (arr[i] < arr[j]) {
-//			temp[k++] = arr[i++];
-//		}
-//		else {
-//			temp[k++] = arr[j++];
-//		}
-//	}
-//	while (i <= mid) {
-//		temp[k++] = arr[i++];
-//	}
-//	while (j <= right) {
-//		temp[k++] = arr[j++];
-//	}
-//	//把temp中的内容拷给arr数组中
-//	//进行归并的时候，处理的区间是arr[left,right),对应的会把
-//	//这部分区间的数组填到tmp[left,right)区间上
-//	memcpy(arr + left, temp + left, sizeof(int)*(right - left + 1));
-//}
-//void mergeSort(int arr[], int left, int right, int *temp) {
-//	int mid = 0;
-//	if (left < right) {
-//		mid = left + (right - left) / 2;
-//		mergeSort(arr, left, mid, temp);
-//		mergeSort(arr, mid + 1, right, temp);
-//		mergeAdd(arr, left, mid, right, temp);
-//	}
-//
-//}
+//非递归的快速排序
+void Quick_SortNor(int arr[], int size)
+{
+	Stack st;
+	st_init(&st, 1024);
+	
+	st_add(&st, size - 1);
+	st_add(&st, 0);
+
+	while (!st_empty(&st))
+	{
+		int left = st_topdata(&st);
+		st_del(&st);
+		int right = st_topdata(&st);
+		st_del(&st);
+
+		if (left < right)
+		{
+			int standard = partition_1(arr, left, right);
+			st_add(&st, right);
+			st_add(&st, standard + 1);
+
+			st_add(&st, standard - 1);
+			st_add(&st, left);
+		}
+	}
+}
+
+//归并排序
+void Merge(int arr[], int left, int mid, int right)
+{
+	int size = right - left;
+	int *extra = (int*)malloc(sizeof(int)*size);
+
+	int left_p = left;
+	int right_p = mid;
+	int extra_p = 0;
+
+	while (left_p < mid && right_p < right)
+	{
+		if (arr[left_p] <= arr[right_p])
+		{
+			extra[extra_p] = arr[left_p];
+			++left_p;
+		}
+		else
+		{
+			extra[extra_p] = arr[right_p];
+			++right_p;
+		}
+		++extra_p;
+	}
+	while (left_p < mid)
+	{
+		extra[extra_p] = arr[left_p];
+		++left_p;
+		++extra_p;
+	}
+	while (right_p < right)
+	{
+		extra[extra_p] = arr[right_p];
+		++right_p;
+		++extra_p;
+	}
+	for (int i = 0; i < size; ++i)
+	{
+		arr[left + i] = extra[i];
+	}
+	free(extra);
+}
+
+void MergeSort(int arr[], int left, int right)
+{
+	if (left + 1 >= right)
+	{
+		return;
+	}
+	int mid = left + (right - left) / 2;
+	MergeSort(arr, left, mid - 1);
+	MergeSort(arr, mid + 1, right);
+	//归并
+	Merge(arr, left, mid, right);
+}
+void Merge_Sort(int arr[], int size)
+{
+	MergeSort(arr, 0 , size);
+}
+//非递归
+void MergeSortNor(int arr[], int size)
+{
+	for (int i = 1; i < size; i =i * 2)
+	{
+		for (int j = 0; j < size; j = j + 2 * i)
+		{
+			int left = j;
+			int mid = j + i;
+			int right = mid + i;
+
+			if (mid >= size)
+			{
+				continue;
+			}
+
+			//单独数的处理
+			if (right > size)
+			{
+				right = size;
+			}
+			Merge(arr, left, mid, right);
+		}
+	}
+}
+
