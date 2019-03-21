@@ -334,8 +334,8 @@ void MergeSort(int arr[], int left, int right)
 		return;
 	}
 	int mid = left + (right - left) / 2;
-	MergeSort(arr, left, mid - 1);
-	MergeSort(arr, mid + 1, right);
+	MergeSort(arr, left, mid );
+	MergeSort(arr, mid , right);
 	//¹é²¢
 	Merge(arr, left, mid, right);
 }
